@@ -1,3 +1,7 @@
+# Robert Johnson
+# CIT 144
+# Project 5
+
 import sqlite3
 
 conn = sqlite3.connect('tickets5.db')
@@ -32,6 +36,7 @@ def getSelection():
         print("Invalid Entry")
         print("Select a valid option")
         selector = input("Select an option 1, 2, 3 or 4")
+    print()
     runAgain()
 
 def isNumber(string):
@@ -66,9 +71,11 @@ def addTicket():
         if sex == 'm' or sex == 'M':
             sex = "Male"
             invalidSex == False
+            break
         elif sex == 'f' or sex == 'F':
             sex= "Female"
             invalidSex == False
+            break
         else:
             print("Invalid Entry. Enter m or f")
             
@@ -78,7 +85,11 @@ def addTicket():
     data = (None, int(newTicket.getActualSpeed()), int(newTicket.getPostedSpeed()), int(newTicket.getAge()), newTicket.getSex())
     cur.execute(sql, data)
     conn.commit()
-    
+    print("Ticket added")
+    print("%-15s %-10s %-6s %-4s " % ('posted-speed', 'MPH Over', 'age', 'sex'))  # headings
+    print("%-15s %-10s %-6s %-4s " % (posted, int(actSpeed) - int(posted), age, sex))     
+
+
 def runAgain():
     print("----------")
     print("Perform another operation(y/n)")
@@ -100,7 +111,8 @@ def displayAllTickets():
     if results:
         printData(results)         # if records were found, print them
     else:
-        print('No data found')     
+        print('No data found')    
+    print() 
     runAgain()
 
 def sexFilter():
